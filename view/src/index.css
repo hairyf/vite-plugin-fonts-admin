@@ -1,0 +1,13 @@
+/*! @import */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app {
+  margin: 25px 0;
+  height: calc(100vh - 50px);
+}
+
+body {
+  background-color: #F2F6FA;
+}
