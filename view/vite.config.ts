@@ -1,7 +1,7 @@
 /*
  * @Author: Mr.Mao
  * @Date: 2021-05-17 18:48:39
- * @LastEditTime: 2021-06-30 21:10:44
+ * @LastEditTime: 2021-07-01 10:13:04
  * @Description: vite.config.ts
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -15,6 +15,14 @@ import ViteComponents, { NaiveUiResolver } from 'vite-plugin-components'
 import { resolve } from 'path'
 
 export default defineConfig({
+  server: {
+    proxy: {
+      '/proxy': {
+        target: 'http://localhost:3001',
+        rewrite: (path) => path.replace(/^\/proxy/, '')
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

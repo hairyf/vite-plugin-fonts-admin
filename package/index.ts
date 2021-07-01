@@ -1,7 +1,7 @@
 /*
  * @Author: Mr.Mao
  * @Date: 2021-06-29 16:57:51
- * @LastEditTime: 2021-06-30 18:42:54
+ * @LastEditTime: 2021-07-01 18:16:09
  * @Description:
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -31,7 +31,7 @@ const VitefontsPlugins = (option: { dir?: string; fontName?: string } = {}) => {
     fs.readFileSync(optionPath)
   } catch (error) {
     utils.mkdirsSync(dirPath)
-    fs.writeFileSync(optionPath, '{"svgs": {}}', { flag: 'w' })
+    fs.writeFileSync(optionPath, '{ "group": [], "fonts": [] }', { flag: 'w' })
   }
 
   // 进行同步 fonts 配置
@@ -59,10 +59,9 @@ const VitefontsPlugins = (option: { dir?: string; fontName?: string } = {}) => {
   app.get('/fonts', (req, res) => {
     res.send(fs.readFileSync(pluginHtmlPath, 'utf8'))
   })
-
   // 配置 josn-server 服务
-  const apiRouter = jsonServer.router(optionPath)
-  app.use('/json', apiRouter)
+  app.use('/json', jsonServer.router(optionPath))
+  app.use('/json-default', jsonServer.defaults())
 
   // 监听配置变化, 同步 fonts
   fs.watch(optionPath, syncSvgToFonts)
