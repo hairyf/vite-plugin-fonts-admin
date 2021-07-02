@@ -82,7 +82,9 @@ ViteFontsAdmin({
   // 生成 css class 前缀, 默认 fontName
   classNamePrefix: 'iconfont',
   // 是否生成 css 入口
-  css: true
+  css: true,
+  // 是否生成 base64 css 入口
+  base64: true
 })
 ~~~
 
