@@ -84,7 +84,9 @@ ViteFontsAdmin({
   // Generate css class prefix, default fontName
   classNamePrefix: 'iconfont',
   // Whether to generate css entrance
-  css: true
+  css: true,
+  // Whether to generate base64 css entrance
+  base64: true
 })
 ~~~
 
