@@ -1,10 +1,13 @@
 # Vite Fonts Administration Plugin
 
-[![img](https://camo.githubusercontent.com/db142803b957437c04073937d4b86d5178015ea2d361fde665b816d0d7887521/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f7569776a732f66696c652d69636f6e732e737667)](https://github.com/TuiMao233/vite-plugin-fonts/issues) [![img](https://camo.githubusercontent.com/315da233bee98f089df489bceb78be0820f71972f91689ecbd5f13aa86df72e6/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f666f726b732f7569776a732f66696c652d69636f6e732e737667)](https://github.com/uiwjs/file-icons/network) [![img](https://camo.githubusercontent.com/72fcee2f208c0487ec2b0b9614db6e248dab749200d1ad2fdee1ea4363ca51d6/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f7569776a732f66696c652d69636f6e732e737667)](https://github.com/TuiMao233/vite-plugin-fonts/stargazers) [![img](https://camo.githubusercontent.com/284011cbc153249237c388c0b573cc61634720f0e349b08d3aa81905265cb20a/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f7569776a732f66696c652d69636f6e732e737667)](https://github.com/TuiMao233/vite-plugin-fonts/releases) [![Packagist](https://camo.githubusercontent.com/fa1864b36b4dcac8ad41229db578e7059c58d5cef4561418d2018d5959abcc59/68747470733a2f2f696d672e736869656c64732e696f2f6475622f6c2f766962652d642e737667)](https://github.com/TuiMao233/vite-plugin-fonts) [![Packagist](https://camo.githubusercontent.com/56978eb13d652fe39ad9535dcf486cd12f556edf9e3cc5af50b39337aae747be/68747470733a2f2f696d672e736869656c64732e696f2f6e706d2f762f407569772f66696c652d69636f6e732e737667)](https://www.npmjs.com/package/vite-plugin-fonts)
+[![img](https://img.shields.io/github/issues/TuiMao233/vite-plugin-fonts-admin.svg)](https://github.com/TuiMao233/vite-plugin-fonts-admin/issues)
+[![img](https://img.shields.io/github/forks/TuiMao233/vite-plugin-fonts-admin.svg)](https://github.com/TuiMao233/vite-plugin-fonts-admin/network/members)
+[![img](https://img.shields.io/github/stars/TuiMao233/vite-plugin-fonts-admin.svg)](https://github.com/TuiMao233/vite-plugin-fonts-admin/stargazers)
+[![NPM version](https://img.shields.io/npm/v/vite-plugin-fonts-admin.svg)](https://www.npmjs.com/package/vite-plugin-fonts-admin)
 
 Manage fonts in Vite projects.
 
-[中文文档](https://github.com/TuiMao233/vite-plugin-fonts/blob/main/README_CN.md)
+[中文文档](https://github.com/TuiMao233/vite-plugin-fonts-admin/blob/main/README_CN.md)
 
 ![view](images/view.png)
 
@@ -18,7 +21,7 @@ Manage fonts in Vite projects.
 
 ~~~typescript
 import { defineConfig } from 'vite'
-import ViteFonts from 'vite-plugin-fonts'
+import ViteFonts from 'vite-plugin-fonts-admin'
 export default defineConfig({
   plugins: [
     ViteFonts()
