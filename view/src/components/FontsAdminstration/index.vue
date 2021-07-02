@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.Mao
  * @Date: 2021-06-30 20:33:06
- * @LastEditTime: 2021-07-02 00:45:19
+ * @LastEditTime: 2021-07-02 18:46:11
  * @Description: 
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -9,7 +9,7 @@
 <template>
   <n-card
     class="rounded-3xl"
-    title="fonts Administration"
+    title="Fonts Administration"
     style="height: calc(100vh - 50px)"
     :bordered="false"
   >
@@ -28,14 +28,35 @@
         </div>
       </n-layout-sider>
       <n-layout-content class="ml-24" content-style="display: flex; flex-direction: column;">
+        <n-upload
+          class="mb-12"
+          action="/upload-svgs"
+          accept=".svg"
+          name="files"
+          :default-upload="true"
+          :multiple="true"
+          :data="{ group: String(currentTab || 10000), isRetainColor: String(isRetainColor) }"
+          @finish="resetPage"
+        >
+          <n-upload-dragger>
+            <div class="mb-12">
+              <n-icon size="48" :depth="3">
+                <CloudDownloadSharp />
+              </n-icon>
+            </div>
+            <n-text class="text-sm">点击或者拖动文件到该区域来上传至当前分组</n-text>
+            <div class="mt-12">
+              <n-button class="w-128" type="primary" @click.stop="showIncModal = true">
+                <n-icon class="mr-2">
+                  <Push />
+                </n-icon>
+                <span>单独写入 Svg </span>
+              </n-button>
+            </div>
+          </n-upload-dragger>
+        </n-upload>
         <div class="flex justify-between">
           <n-space class="items-center leading-none" size="large">
-            <n-button class="w-128" type="primary" @click="showIncModal = true">
-              <n-icon class="mr-2">
-                <Push />
-              </n-icon>
-              <span>上传 Svg</span>
-            </n-button>
             <n-button class="w-128" type="primary" @click="showOutGroupModel = true">
               <n-icon class="mr-2">
                 <ArchiveOutline />
@@ -45,6 +66,7 @@
             <n-checkbox v-model:checked="isSelectAll">全选</n-checkbox>
             <n-button text @click="onDeleteItems">删除</n-button>
             <n-button text @click="showMoveModel = true">移动</n-button>
+            <n-checkbox v-model:checked="isRetainColor">导入 SVG 是否保留颜色</n-checkbox>
           </n-space>
           <n-input class="w-160" placeholder="查询图标" v-model:value="searchForm.text" round>
             <template #suffix>
@@ -103,7 +125,7 @@
       </n-form-item>
       <n-form-item label="分组">
         <n-select
-          placeholder="请选择分组(可选)"
+          placeholder="请选择分组(默认当前分组)"
           v-model:value="fontForm.group"
           :options="groupSelectOptions"
         />
@@ -153,9 +175,6 @@
     <n-form class="mb-24" label-placement="left">
       <n-form-item label="名称">
         <n-input placeholder="请输入分组名称" v-model:value="groupForm.label" />
-      </n-form-item>
-      <n-form-item label="标识">
-        <n-input placeholder="请输入分组标识" v-model:value="groupForm.key" />
       </n-form-item>
     </n-form>
     <div class="flex justify-end">
@@ -213,41 +232,65 @@
 </template>
 
 <script lang="tsx" setup>
-  import { AddCircle, Search, Push, ArchiveOutline, CashOutline } from '@vicons/ionicons5'
+  import {
+    AddCircle,
+    Search,
+    Push,
+    ArchiveOutline,
+    CashOutline,
+    Trash,
+    CloudDownloadSharp
+  } from '@vicons/ionicons5'
   import { ref, computed, onMounted } from 'vue'
   import { useMultipleSelect, useListPagination, axiosLoading } from '@tuimao/utils'
+  import { download } from '../../utils'
   import { Modal } from '../Modal'
   import axios from 'axios'
   import { forIn, cloneDeep } from 'lodash'
-  import { useMessage, NEllipsis } from 'naive-ui'
-  import type { MenuOption } from 'naive-ui'
-  axios.defaults['baseURL'] = '/proxy'
+  import { useMessage, NEllipsis, NIcon } from 'naive-ui'
+  import type { MenuOption, MessageReactive } from 'naive-ui'
+  axios.defaults['loading'] = true
   const message = useMessage()
+  let loadingReactive: MessageReactive | undefined
+  axiosLoading(
+    axios,
+    () => {
+      if (!loadingReactive) loadingReactive = message.loading('加载中....', { duration: 0 })
+    },
+    () => {
+      if (loadingReactive) {
+        loadingReactive.destroy()
+        loadingReactive = undefined
+      }
+    }
+  )
   interface fontOption {
+    id: number
     select: boolean
     label: string
     value: string
     key: string
+    group: number
   }
   interface GroupOption {
+    id: number
     label: any
-    key: string
   }
   interface GroupSelectOption {
     select: boolean
     label: string
-    value: string
+    value: number
   }
 
-  const currentTab = ref('')
+  const currentTab = ref(0)
   const baseMenuOptions = ref<MenuOption[]>([
     {
       label: '全部',
-      key: ''
+      key: 0
     },
     {
       label: '未分组',
-      key: 'ungrouped'
+      key: 10000
     }
   ])
   const groupMenuOptions = ref<MenuOption[]>([])
@@ -255,24 +298,28 @@
   const menuOptions = computed(() => {
     return [...baseMenuOptions.value, ...groupMenuOptions.value]
   })
+  const resetPage = () => {
+    resetFonts()
+    return undefined
+  }
   const searchForm = ref({
     text: ''
   })
   const fontForm = ref({
     key: '',
     value: '',
-    group: undefined as string | undefined
+    group: undefined as number | undefined
   })
   const moveForm = ref({
     group: undefined
   })
   const groupForm = ref({
-    label: '',
-    key: ''
+    label: ''
   })
   const outGroupForm = ref({
     prefix: ''
   })
+  const isRetainColor = ref(true)
   const showIncModal = ref(false)
   const showMoveModel = ref(false)
   const showIncGroupModel = ref(false)
@@ -294,29 +341,65 @@
     if (!groupSelectItems.value.length) {
       message.warning('请选择分组!')
     }
-    console.log(groupSelectItems.value.map((v) => v.value))
-    await axios.get('/out-fonts', {
+    console.log(groupSelectItems.value)
+    const { data } = await axios.get('/out-fonts', {
       params: {
         prefix: outGroupForm.value.prefix,
-        keys: groupSelectItems.value.map((v) => v.value)
-      }
+        ids: groupSelectItems.value.map((v) => v.value)
+      },
+      responseType: 'arraybuffer'
     })
+    download(data, 'iconfont')
   }
   /** 重置分组 */
   const resetGroup = async () => {
     const { data } = await axios.get<GroupOption[]>('/json/group')
     groupMenuOptions.value = data.map((v) => ({
-      label: () => <NEllipsis style="max-width: 102px;">{v.label}</NEllipsis>,
-      key: v.key
+      label: () => (
+        <div class="flex items-center justify-between">
+          <NEllipsis style="max-width: 90px;">
+            <span>{v.label}</span>
+          </NEllipsis>
+          <NIcon
+            class="-mt-4"
+            size="15px"
+            onClick={(e: Event) => {
+              onDeleteGroup(v)
+              e.stopPropagation()
+            }}
+          >
+            <Trash />
+          </NIcon>
+        </div>
+      ),
+      key: v.id
     }))
     groupSelectOptions.value = [
-      { label: '未分组', value: 'ungrouped', select: true },
+      { label: '未分组', value: 1, select: true },
       ...data.map((v) => ({
         select: true,
         label: v.label,
-        value: v.key
+        value: v.id
       }))
     ]
+  }
+  /** 删除分组 */
+  const onDeleteGroup = async (item: GroupOption) => {
+    await Modal({
+      preset: 'dialog',
+      type: 'warning',
+      title: '提示',
+      content: '你确定要删除该分组吗？',
+      positiveText: '确定',
+      negativeText: '不确定'
+    })
+    await axios.delete(`/json/group/${item.id}`)
+    const { data: allFonts } = await axios.get<fontOption[]>('/json/fonts')
+    await Promise.all(
+      allFonts.filter((v) => v.group === item.id).map((v) => axios.delete(`/json/fonts/${v.id}`))
+    )
+    await resetGroup()
+    message.success('删除成功!')
   }
   /** 删除多个 svg 項 */
   const onDeleteItems = async () => {
@@ -334,19 +417,21 @@
   }
   /** 添加 svg 項 */
   const onIncreItem = async () => {
-    if (!fontForm.value.key) {
-      return message.error('名称不能为空')
-    }
-    // if (!/^<svg.*>.*<\/svg>/.test(fontForm.value.value)) {
-    //   return message.error('内容不符合 svg 标签格式')
-    // }
     const cloneForm = cloneDeep(fontForm.value)
     cloneForm.value = cloneForm.value
       .replace(/fill="(.*)"/g, `fill="${'currentColor'}"`)
       .replace(/\n/g, '')
       .trim()
-    console.log(cloneForm.value)
-    cloneForm.group = cloneForm.group || 'ungrouped'
+    if (isRetainColor.value) {
+      cloneForm.value = cloneForm.value.replace(/fill="(.*)"/g, `fill="${'currentColor'}"`)
+    }
+    if (!cloneForm.key) {
+      return message.error('名称不能为空')
+    }
+    if (!/^<svg.*>.*<\/svg>/.test(cloneForm.value)) {
+      return message.error('内容不符合 svg 标签格式')
+    }
+    cloneForm.group = cloneForm.group || currentTab.value || 10000
     await axios.post('/json/fonts', cloneForm)
     forIn(fontForm.value, (v, k) => ((fontForm.value as any)[k] = ''))
     fontForm.value.group = undefined
