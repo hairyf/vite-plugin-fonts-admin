@@ -21,10 +21,10 @@ Manage fonts in Vite projects.
 
 ~~~typescript
 import { defineConfig } from 'vite'
-import ViteFonts from 'vite-plugin-fonts-admin'
+import ViteFontsAdmin from 'vite-plugin-fonts-admin'
 export default defineConfig({
   plugins: [
-    ViteFonts()
+    ViteFontsAdmin()
   ]
 })
 ~~~
@@ -76,7 +76,7 @@ src
 ## Option
 
 ~~~js
-ViteFonts({
+ViteFontsAdmin({
   // Generate font path, default 'src/VFonts'
   dir: 'src/VFonts',
   // Generate font name, default 'iconfont'
