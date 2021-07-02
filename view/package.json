@@ -27,6 +27,7 @@
     "typescript": "^4.3.2",
     "vite": "^2.3.8",
     "vite-plugin-components": "^0.11.3",
+    "vite-plugin-fonts-admin": "^1.0.61",
     "vue-tsc": "^0.0.24"
   },
   "eslintConfig": {

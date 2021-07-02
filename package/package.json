@@ -1,8 +1,8 @@
 {
   "name": "vite-plugin-fonts-admin",
-  "version": "1.0.1",
+  "version": "1.0.61",
   "description": "",
-  "main": "package/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "vite"
   },

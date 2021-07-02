@@ -1,7 +1,7 @@
 /*
  * @Author: Mr.Mao
  * @Date: 2021-05-17 18:48:39
- * @LastEditTime: 2021-07-02 20:25:15
+ * @LastEditTime: 2021-07-02 22:41:22
  * @Description: vite.config.ts
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -11,6 +11,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import ViteFontsAdmin from 'vite-plugin-fonts-admin'
 import ViteComponents, { NaiveUiResolver } from 'vite-plugin-components'
 import { resolve } from 'path'
 export default defineConfig({
@@ -39,6 +40,7 @@ export default defineConfig({
       deep: true,
       customComponentResolvers: [NaiveUiResolver()]
     }),
+    ViteFontsAdmin(),
     vueJsx()
   ]
 })
