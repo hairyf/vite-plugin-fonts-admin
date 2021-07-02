@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.Mao
  * @Date: 2021-06-30 20:33:06
- * @LastEditTime: 2021-07-02 18:46:11
+ * @LastEditTime: 2021-07-02 20:50:34
  * @Description: 
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -10,7 +10,7 @@
   <n-card
     class="rounded-3xl"
     title="Fonts Administration"
-    style="height: calc(100vh - 50px)"
+    style="height: calc(100vh - 50px); min-height: 470px"
     :bordered="false"
   >
     <n-layout has-sider class="h-full">
@@ -27,10 +27,14 @@
           <n-menu class="w-full" v-model:value="currentTab" :options="menuOptions" />
         </div>
       </n-layout-sider>
-      <n-layout-content class="ml-24" content-style="display: flex; flex-direction: column;">
+      <n-layout-content
+        class="ml-24"
+        content-style="display: flex; flex-direction: column;"
+        :native-scrollbar="false"
+      >
         <n-upload
           class="mb-12"
-          action="/upload-svgs"
+          :action="`${axios.defaults['baseURL']}/upload-svgs`"
           accept=".svg"
           name="files"
           :default-upload="true"
@@ -249,6 +253,8 @@
   import { forIn, cloneDeep } from 'lodash'
   import { useMessage, NEllipsis, NIcon } from 'naive-ui'
   import type { MenuOption, MessageReactive } from 'naive-ui'
+  const development = import.meta.env.DEV
+  axios.defaults['baseURL'] = development ? '/proxy' : ''
   axios.defaults['loading'] = true
   const message = useMessage()
   let loadingReactive: MessageReactive | undefined
@@ -341,7 +347,6 @@
     if (!groupSelectItems.value.length) {
       message.warning('请选择分组!')
     }
-    console.log(groupSelectItems.value)
     const { data } = await axios.get('/out-fonts', {
       params: {
         prefix: outGroupForm.value.prefix,
@@ -375,7 +380,7 @@
       key: v.id
     }))
     groupSelectOptions.value = [
-      { label: '未分组', value: 1, select: true },
+      { label: '未分组', value: 10000, select: true },
       ...data.map((v) => ({
         select: true,
         label: v.label,
@@ -418,12 +423,9 @@
   /** 添加 svg 項 */
   const onIncreItem = async () => {
     const cloneForm = cloneDeep(fontForm.value)
-    cloneForm.value = cloneForm.value
-      .replace(/fill="(.*)"/g, `fill="${'currentColor'}"`)
-      .replace(/\n/g, '')
-      .trim()
-    if (isRetainColor.value) {
-      cloneForm.value = cloneForm.value.replace(/fill="(.*)"/g, `fill="${'currentColor'}"`)
+    cloneForm.value = cloneForm.value.replace(/\n/g, '').trim()
+    if (!isRetainColor.value) {
+      cloneForm.value = cloneForm.value.replace(/fill="(\w*%?)"/g, `fill="${'currentColor'}"`)
     }
     if (!cloneForm.key) {
       return message.error('名称不能为空')

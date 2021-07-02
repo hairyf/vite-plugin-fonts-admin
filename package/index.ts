@@ -1,7 +1,7 @@
 /*
  * @Author: Mr.Mao
  * @Date: 2021-06-29 16:57:51
- * @LastEditTime: 2021-07-02 17:56:38
+ * @LastEditTime: 2021-07-02 21:14:00
  * @Description:
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -23,6 +23,7 @@ interface FontsPluginOption {
   fontName?: string
   classNamePrefix?: string
   css?: boolean
+  base64?: boolean
 }
 
 /**
@@ -70,6 +71,16 @@ const ViteFontsPlugin = (option: FontsPluginOption = {}) => {
       classNamePrefix: option.classNamePrefix,
       css: typeof option.css === 'undefined' || option.css,
     });
+    if (option.base64) {
+      // 生成 base64
+      const ttfBase64 = fs.readFileSync(path.resolve(fontsPath, 'iconfont.ttf'), 'base64')
+      const css = fs.readFileSync(path.resolve(fontsPath, 'iconfont.css'), 'utf-8')
+      const replaceCss = css.replace(/\@font-face \{([\s\S]*)\*\/\n\}/, `\
+@font-face { font-family: "iconfont"; src: url('data:font/woff2;charset=utf-8;base64,${ttfBase64}') format('truetype'); }\
+    `
+      )
+      fs.writeFileSync(path.resolve(fontsPath, 'iconfont.base64.css'), replaceCss)
+    }
   }, 100)
 
   // 配置视图文件, 模板引擎, 渲染页面
@@ -84,6 +95,7 @@ const ViteFontsPlugin = (option: FontsPluginOption = {}) => {
   app.get('/out-fonts', async (req, res) => {
     const ids = req.query.ids as string[]
     const prefix: string = req.query.prefix as string
+    const base64 = req.query.base64 as string
     const groupFonts = await Promise.all(
       ids.map(v => {
         return axios
@@ -97,6 +109,7 @@ const ViteFontsPlugin = (option: FontsPluginOption = {}) => {
     const distPath = path.resolve(__dirname, 'iconfont')
     const compressPath = path.resolve(__dirname, 'compress/iconfont.zip')
     utils.mkdirsSync(distPath)
+    utils.mkdirsSync(path.resolve(__dirname, 'compress'))
     await svgtofont({
       src: cachesPath,
       dist: distPath,
@@ -105,6 +118,14 @@ const ViteFontsPlugin = (option: FontsPluginOption = {}) => {
     });
     const typeKeys = fonts.map(v => `'${v.key}'`).join(' | ').trim()
     fs.writeFileSync(path.resolve(distPath, 'iconfont.key.ts'), `export type IconfontKey = ${typeKeys || 'string'}`)
+    // 生成 base64
+    const ttfBase64 = fs.readFileSync(path.resolve(distPath, 'iconfont.ttf'), 'base64')
+    const css = fs.readFileSync(path.resolve(distPath, 'iconfont.css'), 'utf-8')
+    const replaceCss = css.replace(/\@font-face \{([\s\S]*)\*\/\n\}/, `\
+@font-face { font-family: "iconfont"; src: url('data:font/woff2;charset=utf-8;base64,${ttfBase64}') format('truetype'); }\
+    `
+    )
+    fs.writeFileSync(path.resolve(distPath, 'iconfont.base64.css'), replaceCss)
     // 创建文件流, 压缩打包, 完成归档
     const output = fs.createWriteStream(compressPath)
     const archive = archiver("zip", {
@@ -141,7 +162,7 @@ const ViteFontsPlugin = (option: FontsPluginOption = {}) => {
         }))
         .map(v => {
           if (!isRetainColor) {
-            v.value = v.value.replace(/fill="(.*)"/g, `fill="${'currentColor'}"`)
+            v.value = v.value.replace(/fill="(\w*%?)"/g, `fill="${'currentColor'}"`)
           }
           return v
         })
