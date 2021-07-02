@@ -70,7 +70,7 @@ src
 
 ## Option
 
-~~~json
+~~~js
 ViteFonts({
   // Generate font path, default 'src/VFonts'
   dir: 'src/VFonts',
