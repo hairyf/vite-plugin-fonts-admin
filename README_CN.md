@@ -2,31 +2,29 @@
 
 [![img](https://camo.githubusercontent.com/db142803b957437c04073937d4b86d5178015ea2d361fde665b816d0d7887521/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f7569776a732f66696c652d69636f6e732e737667)](https://github.com/TuiMao233/vite-plugin-fonts/issues) [![img](https://camo.githubusercontent.com/315da233bee98f089df489bceb78be0820f71972f91689ecbd5f13aa86df72e6/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f666f726b732f7569776a732f66696c652d69636f6e732e737667)](https://github.com/uiwjs/file-icons/network) [![img](https://camo.githubusercontent.com/72fcee2f208c0487ec2b0b9614db6e248dab749200d1ad2fdee1ea4363ca51d6/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f7569776a732f66696c652d69636f6e732e737667)](https://github.com/TuiMao233/vite-plugin-fonts/stargazers) [![img](https://camo.githubusercontent.com/284011cbc153249237c388c0b573cc61634720f0e349b08d3aa81905265cb20a/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f7569776a732f66696c652d69636f6e732e737667)](https://github.com/TuiMao233/vite-plugin-fonts/releases) [![Packagist](https://camo.githubusercontent.com/fa1864b36b4dcac8ad41229db578e7059c58d5cef4561418d2018d5959abcc59/68747470733a2f2f696d672e736869656c64732e696f2f6475622f6c2f766962652d642e737667)](https://github.com/TuiMao233/vite-plugin-fonts) [![Packagist](https://camo.githubusercontent.com/56978eb13d652fe39ad9535dcf486cd12f556edf9e3cc5af50b39337aae747be/68747470733a2f2f696d672e736869656c64732e696f2f6e706d2f762f407569772f66696c652d69636f6e732e737667)](https://www.npmjs.com/package/vite-plugin-fonts)
 
-Manage fonts in Vite projects.
-
-[中文文档](https://github.com/TuiMao233/vite-plugin-fonts/blob/main/README_CN.md)
+用于管理项目中的字体图标.
 
 ![view](images/view.png)
 
-### Icon Font Created By svgtofont
+### 该项目依赖于
 
 [svgtofont](https://github.com/jaywcjlove/svgtofont#readme) Svg generate Fonts
 
 [archiver](https://github.com/archiverjs/node-archiver) Files compress Zip
 
-## Vite Plugin Use
+## Vite 插件使用
 
 ~~~typescript
 import { defineConfig } from 'vite'
-import ViteFonts from 'vite-plugin-fonts'
+import ViteFontsAdmin from 'vite-plugin-fonts-admin'
 export default defineConfig({
   plugins: [
-    ViteFonts()
+    ViteFontsAdmin()
   ]
 })
 ~~~
 
-## Vue Use
+## Vue 使用
 
 ~~~html
 <!-- src/VFonts/index.vue -->
@@ -51,7 +49,7 @@ export default defineComponent({
 </script>
 ~~~
 
-## Visit Fonts Administration
+## 访问 Fonts 管理后台
 
 ~~~sh
 # visit url: Local/fonts
@@ -61,7 +59,7 @@ vite v2.3.8 dev server running at:
 # http://localhost:3000/ >>> http://localhost:3000/fonts
 ~~~
 
-## generate dir
+## 生成的目录结构
 
 ~~~sh
 # svg > index.json > fonts/...
@@ -70,17 +68,17 @@ src
 - fonts # css | ttf | woff | woff2 | svg
 ~~~
 
-## Option
+## 调用配置
 
 ~~~js
-ViteFonts({
-  // Generate font path, default 'src/VFonts'
+ViteFontsAdmin({
+  // 生成 font 路径, 默认 'src/VFonts'
   dir: 'src/VFonts',
-  // Generate font name, default 'iconfont'
+  // 生成 font 名称, 默认 'iconfont'
   fontName: 'iconfont',
-  // Generate css class prefix, default fontName
+  // 生成 css class 前缀, 默认 fontName
   classNamePrefix: 'iconfont',
-  // Whether to generate css entrance
+  // 是否生成 css 入口
   css: true
 })
 ~~~
