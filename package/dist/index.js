@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * @Author: Mr.Mao
  * @Date: 2021-06-29 16:57:51
- * @LastEditTime: 2021-07-02 22:38:21
+ * @LastEditTime: 2021-07-03 20:58:44
  * @Description:
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -36,16 +36,17 @@ const ViteFontsPlugin = (option = {}) => {
     const cachesPath = path_1.default.resolve(__dirname, 'caches');
     // 初始化服务器配置
     const initServerStart = (server) => {
+        var _a;
         const { host, port } = server.config.server;
         axios_1.default.defaults['baseURL'] = `http://${host || 'localhost'}:${port || 3000}/json`;
         // 假如 fonts 为空, 同步 fonts
         if (!fs_1.default.existsSync(fontsPath)) {
             utils.mkdirsSync(fontsPath);
-            syncSvgToFonts();
         }
         if (!fs_1.default.existsSync(cachesPath)) {
             utils.mkdirsSync(cachesPath);
         }
+        (_a = server.httpServer) === null || _a === void 0 ? void 0 : _a.once('listening', syncSvgToFonts);
     };
     // 判断路径是否存在 / 符合创建环境
     try {

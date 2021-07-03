@@ -1,7 +1,7 @@
 /*
  * @Author: Mr.Mao
  * @Date: 2021-06-29 16:57:51
- * @LastEditTime: 2021-07-02 22:38:21
+ * @LastEditTime: 2021-07-03 20:58:44
  * @Description:
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -47,11 +47,11 @@ const ViteFontsPlugin = (option: FontsPluginOption = {}) => {
     // 假如 fonts 为空, 同步 fonts
     if (!fs.existsSync(fontsPath)) {
       utils.mkdirsSync(fontsPath)
-      syncSvgToFonts()
     }
     if (!fs.existsSync(cachesPath)) {
       utils.mkdirsSync(cachesPath)
     }
+      server.httpServer?.once('listening', syncSvgToFonts)
   }
 
   // 判断路径是否存在 / 符合创建环境
