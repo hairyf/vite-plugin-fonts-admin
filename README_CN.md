@@ -19,7 +19,7 @@
 
 ~~~typescript
 import { defineConfig } from 'vite'
-import ViteFontsAdmin from 'vite-plugin-fonts-admin'
+import { ViteFontsAdmin } from 'vite-plugin-fonts-admin'
 export default defineConfig({
   plugins: [
     ViteFontsAdmin()
@@ -86,6 +86,16 @@ ViteFontsAdmin({
   // 是否生成 base64 css 入口
   base64: true
 })
+~~~
+
+## 单独部署
+
+~~~sh
+clone https://github.com/TuiMao233/vite-plugin-fonts-admin.git
+# 安装依赖
+yarn
+# 运行服务
+npm run serve
 ~~~
 
 ## License

@@ -21,7 +21,7 @@ Manage fonts in Vite projects.
 
 ~~~typescript
 import { defineConfig } from 'vite'
-import ViteFontsAdmin from 'vite-plugin-fonts-admin'
+import { ViteFontsAdmin } from 'vite-plugin-fonts-admin'
 export default defineConfig({
   plugins: [
     ViteFontsAdmin()
@@ -64,7 +64,7 @@ vite v2.3.8 dev server running at:
 # http://localhost:3000/ >>> http://localhost:3000/fonts
 ~~~
 
-## generate dir
+## Generate dir
 
 ~~~sh
 # svg > index.json > fonts/...
@@ -88,6 +88,16 @@ ViteFontsAdmin({
   // Whether to generate base64 css entrance
   base64: true
 })
+~~~
+
+## Alone deploy
+
+~~~sh
+clone https://github.com/TuiMao233/vite-plugin-fonts-admin.git
+# add node_modules
+yarn
+# run server
+npm run serve
 ~~~
 
 ## License
