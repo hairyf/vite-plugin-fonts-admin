@@ -19,6 +19,7 @@ const lodash_1 = require("lodash");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 __exportStar(require("./middlewares"), exports);
+const utils = require('nodejs-fs-utils');
 const ViteFontsAdmin = (option) => {
     let watcher;
     const pluginOption = {
@@ -28,6 +29,11 @@ const ViteFontsAdmin = (option) => {
             server.middlewares.use(app);
             const targetPath = (option === null || option === void 0 ? void 0 : option.path) || 'src/VSvg';
             const optionPath = `${targetPath}/index.json`;
+            // 判断路径是否存在 / 符合创建环境
+            if (!fs_1.default.existsSync(optionPath)) {
+                utils.mkdirsSync(targetPath);
+                fs_1.default.writeFileSync(optionPath, '{}', { flag: 'w' });
+            }
             const generateFonts = lodash_1.debounce(() => app.generateFonts({ target: path_1.default.resolve(targetPath, './fonts') }), 50);
             watcher = fs_1.default.watch(optionPath, generateFonts);
         },

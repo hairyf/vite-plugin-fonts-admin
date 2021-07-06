@@ -33,7 +33,7 @@ const createTTFBase64FontFace = (base64: string) => {
 
 export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
   const app = express() as Express & { generateFonts: typeof generateFonts }
-  const targetPath = option.path || 'src/VSvg'
+  const targetPath = option.path || 'fontsdb'
   const optionPath = `${targetPath}/index.json`
 
   // 判断路径是否存在 / 符合创建环境
@@ -109,7 +109,7 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
       archive.directory(target, false)
       archive.pipe(output)
       await archive.finalize()
-      return zipPath
+      return new Promise<string>((r) => output.on('close', () => r(zipPath)))
     }
   }
 
@@ -122,7 +122,8 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
         groups,
         classNamePrefix,
         outTarget: path.resolve(__dirname, 'compress'),
-        css: true
+        css: true,
+        base64: true
       })
       res.sendFile(zipPath!)
     } catch (error) {

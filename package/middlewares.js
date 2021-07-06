@@ -18,7 +18,7 @@ const createTTFBase64FontFace = (base64) => {
 };
 const fontAdminMiddlewares = (option = {}) => {
     const app = express_1.default();
-    const targetPath = option.path || 'src/VSvg';
+    const targetPath = option.path || 'fontsdb';
     const optionPath = `${targetPath}/index.json`;
     // 判断路径是否存在 / 符合创建环境
     if (!fs_1.default.existsSync(optionPath)) {
@@ -74,7 +74,7 @@ const fontAdminMiddlewares = (option = {}) => {
             archive.directory(target, false);
             archive.pipe(output);
             await archive.finalize();
-            return zipPath;
+            return new Promise((r) => output.on('close', () => r(zipPath)));
         }
     };
     // 导出 Fonts
@@ -86,7 +86,8 @@ const fontAdminMiddlewares = (option = {}) => {
                 groups,
                 classNamePrefix,
                 outTarget: path_1.default.resolve(__dirname, 'compress'),
-                css: true
+                css: true,
+                base64: true
             });
             res.sendFile(zipPath);
         }
