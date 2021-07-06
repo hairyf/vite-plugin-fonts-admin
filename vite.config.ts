@@ -22,7 +22,7 @@ export default defineConfig({
       '~': resolve(__dirname, 'src/components')
     }
   },
-  base: '/fonts',
+  // base: '/fonts',
   build: {
     outDir: 'package/public'
   },

@@ -21,6 +21,7 @@ const utils = require('nodejs-fs-utils');
  */
 const generateSvgCahes = (fonts) => {
     const dirPath = path_1.default.resolve(__dirname, './caches');
+    utils.mkdirsSync(dirPath);
     utils.emptyDirSync(dirPath);
     fonts.forEach(({ value, key }) => {
         fs_1.default.writeFileSync(path_1.default.resolve(dirPath, `${key}.svg`), value, { flag: 'w' });

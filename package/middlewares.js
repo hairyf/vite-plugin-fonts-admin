@@ -91,7 +91,7 @@ const fontAdminMiddlewares = (option = {}) => {
             res.sendFile(zipPath);
         }
         catch (error) {
-            res.status(500).send('导出失败');
+            res.status(500).send(error);
         }
     });
     // 配置上传, 导入多个 svg

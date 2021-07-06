@@ -22,6 +22,7 @@ interface FontOption {
  */
 export const generateSvgCahes = (fonts: FontOption[]) => {
   const dirPath = path.resolve(__dirname, './caches')
+  utils.mkdirsSync(dirPath)
   utils.emptyDirSync(dirPath)
   fonts.forEach(({ value, key }) => {
     fs.writeFileSync(path.resolve(dirPath, `${key}.svg`), value, { flag: 'w' })
