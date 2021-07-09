@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const middlewares_1 = require("./middlewares");
 const app = express_1.default();
 app.use(middlewares_1.fontAdminMiddlewares({ path: 'fontsdb' }));
-let port = 5050;
+let port = 3000;
 const server = app.listen(port, () => {
     console.log(`服务开启成功! 地址: http://localhost:${port}/fonts`);
 });

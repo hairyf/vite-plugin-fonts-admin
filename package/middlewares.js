@@ -42,7 +42,7 @@ const fontAdminMiddlewares = (option = {}) => {
         if (!fonts.length)
             return Promise.reject();
         // Generate Fonts
-        utils_1.generateSvgCahes(fonts);
+        await utils_1.generateSvgCahes(fonts);
         await svgtofont_1.default({
             src: path_1.default.resolve(__dirname, './caches'),
             dist: target,

@@ -9,7 +9,7 @@ interface FontOption {
  * 根据配置生成 SVG 缓存目录
  * @param svgsObject
  */
-export declare const generateSvgCahes: (fonts: FontOption[]) => void;
+export declare const generateSvgCahes: (fonts: FontOption[]) => Promise<void>;
 /**
  * 输出压缩打印
  * @param output

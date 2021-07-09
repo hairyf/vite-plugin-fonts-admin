@@ -68,7 +68,7 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
     if (!fonts.length) return Promise.reject()
 
     // Generate Fonts
-    generateSvgCahes(fonts)
+    await generateSvgCahes(fonts)
     await svgtofont({
       src: path.resolve(__dirname, './caches'),
       dist: target,

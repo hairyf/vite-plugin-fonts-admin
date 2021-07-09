@@ -7,7 +7,7 @@ exports.archiverLogger = exports.generateSvgCahes = void 0;
 /*
  * @Author: Mr.Mao
  * @Date: 2021-06-30 14:22:24
- * @LastEditTime: 2021-07-02 10:21:26
+ * @LastEditTime: 2021-07-09 17:11:28
  * @Description:
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -19,13 +19,15 @@ const utils = require('nodejs-fs-utils');
  * 根据配置生成 SVG 缓存目录
  * @param svgsObject
  */
-const generateSvgCahes = (fonts) => {
+const generateSvgCahes = async (fonts) => {
     const dirPath = path_1.default.resolve(__dirname, './caches');
     utils.mkdirsSync(dirPath);
     utils.emptyDirSync(dirPath);
-    fonts.forEach(({ value, key }) => {
+    for (let i = 0; i < fonts.length; i++) {
+        const { value, key } = fonts[i];
         fs_1.default.writeFileSync(path_1.default.resolve(dirPath, `${key}.svg`), value, { flag: 'w' });
-    });
+    }
+    await new Promise((r) => setTimeout(r, 1000));
 };
 exports.generateSvgCahes = generateSvgCahes;
 /**
