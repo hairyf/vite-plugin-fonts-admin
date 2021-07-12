@@ -86,6 +86,13 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
       `export type IconfontKey = ${typeKeys || 'string'}`
     )
 
+    // Generate Json
+    const json = fonts.reduce<Record<string, string>>((total, value) => {
+      total[value.key] = value.value
+      return total
+    }, {})
+    fs.writeFileSync(path.resolve(target, 'iconfont.json'), JSON.stringify(json, null, '\t'))
+
     // Generate Base64
     if (base64) {
       const ttfBase64 = fs.readFileSync(path.resolve(target, 'iconfont.ttf'), 'base64')
@@ -111,13 +118,6 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
       await archive.finalize()
       return new Promise<string>((r) => output.on('close', () => r(zipPath)))
     }
-
-    // Generate Json
-    const json = fonts.reduce<Record<string, string>>((total, value) => {
-      total[value.key] = value.value
-      return total
-    }, {})
-    fs.writeFileSync(path.resolve(target, 'iconfont.json'), JSON.stringify(json, null, '\t'))
   }
 
   // 导出 Fonts

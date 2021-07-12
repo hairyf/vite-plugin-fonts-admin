@@ -55,6 +55,12 @@ const fontAdminMiddlewares = (option = {}) => {
             .join(' | ')
             .trim();
         fs_1.default.writeFileSync(path_1.default.resolve(target, 'iconfont.key.ts'), `export type IconfontKey = ${typeKeys || 'string'}`);
+        // Generate Json
+        const json = fonts.reduce((total, value) => {
+            total[value.key] = value.value;
+            return total;
+        }, {});
+        fs_1.default.writeFileSync(path_1.default.resolve(target, 'iconfont.json'), JSON.stringify(json, null, '\t'));
         // Generate Base64
         if (base64) {
             const ttfBase64 = fs_1.default.readFileSync(path_1.default.resolve(target, 'iconfont.ttf'), 'base64');
@@ -76,12 +82,6 @@ const fontAdminMiddlewares = (option = {}) => {
             await archive.finalize();
             return new Promise((r) => output.on('close', () => r(zipPath)));
         }
-        // Generate Json
-        const json = fonts.reduce((total, value) => {
-            total[value.key] = value.value;
-            return total;
-        }, {});
-        fs_1.default.writeFileSync(path_1.default.resolve(target, 'iconfont.json'), JSON.stringify(json, null, '\t'));
     };
     // 导出 Fonts
     app.get('/out-fonts', async (req, res) => {
