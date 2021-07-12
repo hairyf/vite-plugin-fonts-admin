@@ -120,6 +120,7 @@ const fontAdminMiddlewares = (option = {}) => {
             group
         }))
             .map((v) => {
+            v.value = v.value.replace(/width="(\w*%?)"/g, '').replace(/height="(\w*%?)"/g, '');
             if (!isRetainColor) {
                 v.value = v.value.replace(/fill="(\w*%?)"/g, `fill="${'currentColor'}"`);
             }
