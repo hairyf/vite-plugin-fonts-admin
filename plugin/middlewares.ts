@@ -111,6 +111,13 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
       await archive.finalize()
       return new Promise<string>((r) => output.on('close', () => r(zipPath)))
     }
+
+    // Generate Json
+    const json = fonts.reduce<Record<string, string>>((total, value) => {
+      total[value.key] = value.value
+      return total
+    }, {})
+    fs.writeFileSync(path.resolve(target, 'iconfont.json'), JSON.stringify(json, null, '\t'))
   }
 
   // 导出 Fonts

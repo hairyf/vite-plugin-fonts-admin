@@ -76,6 +76,12 @@ const fontAdminMiddlewares = (option = {}) => {
             await archive.finalize();
             return new Promise((r) => output.on('close', () => r(zipPath)));
         }
+        // Generate Json
+        const json = fonts.reduce((total, value) => {
+            total[value.key] = value.value;
+            return total;
+        }, {});
+        fs_1.default.writeFileSync(path_1.default.resolve(target, 'iconfont.json'), JSON.stringify(json, null, '\t'));
     };
     // 导出 Fonts
     app.get('/out-fonts', async (req, res) => {
