@@ -11,6 +11,7 @@ const path_1 = __importDefault(require("path"));
 const svgtofont_1 = __importDefault(require("svgtofont"));
 const archiver_1 = __importDefault(require("archiver"));
 const utils_1 = require("./utils");
+const common_1 = require("@tuimao/utils/package/common");
 const multer_1 = __importDefault(require("multer"));
 const utils = require('nodejs-fs-utils');
 const createTTFBase64FontFace = (base64) => {
@@ -120,9 +121,15 @@ const fontAdminMiddlewares = (option = {}) => {
             group
         }))
             .map((v) => {
-            v.value = v.value.replace(/width="(\w*%?)"/g, '').replace(/height="(\w*%?)"/g, '');
             if (!isRetainColor) {
-                v.value = v.value.replace(/fill="(\w*%?)"/g, `fill="${'currentColor'}"`);
+                v.value = common_1.setHtmlStrTagAttr({
+                    html: v.value, tag: 'path',
+                    attr: 'fill', value: 'currentColor'
+                });
+                v.value = common_1.setHtmlStrTagAttr({
+                    html: v.value, tag: 'svg',
+                    attr: 'fill', value: 'currentColor'
+                });
             }
             return v;
         })

@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.Mao
  * @Date: 2021-06-30 20:33:06
- * @LastEditTime: 2021-07-12 16:06:26
+ * @LastEditTime: 2021-07-17 14:35:05
  * @Description: 
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -246,7 +246,12 @@
     CloudDownloadSharp
   } from '@vicons/ionicons5'
   import { ref, computed, onMounted } from 'vue'
-  import { useMultipleSelect, useListPagination, axiosLoading } from '@tuimao/utils'
+  import {
+    useMultipleSelect,
+    useListPagination,
+    axiosLoading,
+    setHtmlStrTagAttr
+  } from '@tuimao/utils'
   import { download } from '../../utils'
   import { Modal } from '../Modal'
   import axios from 'axios'
@@ -427,7 +432,18 @@
       .replace(/height="(\w*%?)"/g, '')
       .trim()
     if (!isRetainColor.value) {
-      cloneForm.value = cloneForm.value.replace(/fill="(\w*%?)"/g, `fill="${'currentColor'}"`)
+      cloneForm.value = setHtmlStrTagAttr({
+        html: cloneForm.value,
+        tag: 'path',
+        attr: 'fill',
+        value: 'currentColor'
+      })
+      cloneForm.value = setHtmlStrTagAttr({
+        html: cloneForm.value,
+        tag: 'svg',
+        attr: 'fill',
+        value: 'currentColor'
+      })
     }
     if (!cloneForm.key) {
       return message.error('名称不能为空')
