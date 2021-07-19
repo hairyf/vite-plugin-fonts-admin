@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.Mao
  * @Date: 2021-06-30 20:33:06
- * @LastEditTime: 2021-07-19 21:32:41
+ * @LastEditTime: 2021-07-19 22:17:33
  * @Description: 
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -508,7 +508,8 @@
   /** 处理点击菜单 */
   const onSelectContextMenu = async (key: 'copy' | 'delete') => {
     if (key === 'copy') {
-      await useClipboard({ source: currentItem.value?.key }).copy()
+      const { copy } = useClipboard()
+      await copy(currentItem.value?.key || '')
       message.success(`复制 ${currentItem.value?.key} 成功`)
     }
     if (key === 'delete') {
