@@ -1,7 +1,7 @@
 /*
  * @Author: Mr.Mao
  * @Date: 2021-05-17 18:48:39
- * @LastEditTime: 2021-07-17 14:08:20
+ * @LastEditTime: 2021-07-19 21:05:37
  * @Description: vite.config.ts
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -16,7 +16,8 @@ import { ViteFontsAdmin } from './plugin'
 import { resolve } from 'path'
 export default defineConfig({
   server: {
-    port: 5301
+    port: 5301,
+    hmr: true
   },
   resolve: {
     alias: {

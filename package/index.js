@@ -14,6 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ViteFontsAdmin = void 0;
+/*
+ * @Author: Mr.Mao
+ * @Date: 2021-07-06 09:09:31
+ * @LastEditTime: 2021-07-19 20:50:36
+ * @Description:
+ * @LastEditors: Mr.Mao
+ * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
+ */
 const middlewares_1 = require("./middlewares");
 const lodash_1 = require("lodash");
 const fs_1 = __importDefault(require("fs"));
@@ -27,15 +35,8 @@ const ViteFontsAdmin = (option) => {
         configureServer: (server) => {
             const app = middlewares_1.fontAdminMiddlewares(option);
             server.middlewares.use(app);
-            const targetPath = (option === null || option === void 0 ? void 0 : option.path) || 'src/VSvg';
-            const optionPath = `${targetPath}/index.json`;
-            // 判断路径是否存在 / 符合创建环境
-            if (!fs_1.default.existsSync(optionPath)) {
-                utils.mkdirsSync(targetPath);
-                fs_1.default.writeFileSync(optionPath, '{}', { flag: 'w' });
-            }
-            const generateFonts = lodash_1.debounce(() => app.generateFonts({ target: path_1.default.resolve(targetPath, './fonts') }), 50);
-            watcher = fs_1.default.watch(optionPath, generateFonts);
+            const generateFonts = lodash_1.debounce(() => app.font.generateFonts({ target: path_1.default.resolve(app.font.optionPath, '/fonts') }), 50);
+            watcher = fs_1.default.watch(app.font.optionPath, generateFonts);
         },
         buildEnd: () => { var _a; return (_a = watcher === null || watcher === void 0 ? void 0 : watcher.close) === null || _a === void 0 ? void 0 : _a.call(watcher); }
     };

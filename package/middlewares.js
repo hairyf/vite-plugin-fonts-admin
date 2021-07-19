@@ -13,14 +13,15 @@ const archiver_1 = __importDefault(require("archiver"));
 const utils_1 = require("./utils");
 const common_1 = require("@tuimao/utils/package/common");
 const multer_1 = __importDefault(require("multer"));
+const nanoid_1 = require("nanoid");
 const utils = require('nodejs-fs-utils');
 const createTTFBase64FontFace = (base64) => {
     return `@font-face { font-family: "iconfont"; src: url('data:font/woff2;charset=utf-8;base64,${base64}') format('truetype'); }`;
 };
 const fontAdminMiddlewares = (option = {}) => {
-    const app = express_1.default();
     const targetPath = option.path || 'fontsdb';
     const optionPath = `${targetPath}/index.json`;
+    const app = express_1.default();
     // 判断路径是否存在 / 符合创建环境
     if (!fs_1.default.existsSync(optionPath)) {
         utils.mkdirsSync(targetPath);
@@ -35,6 +36,7 @@ const fontAdminMiddlewares = (option = {}) => {
     // 生成所有配置
     const generateFonts = async (defaultOption = {}) => {
         const { target = targetPath, base64, css, groups, classNamePrefix, outTarget } = Object.assign(Object.assign({}, option), defaultOption);
+        const generateTarget = path_1.default.resolve(target, '/fonts');
         // Get fonts
         const allFonts = jsonRouter.db.get('fonts').value();
         const fonts = allFonts.filter((f) => {
@@ -46,7 +48,7 @@ const fontAdminMiddlewares = (option = {}) => {
         await utils_1.generateSvgCahes(fonts);
         await svgtofont_1.default({
             src: path_1.default.resolve(__dirname, './caches'),
-            dist: target,
+            dist: generateTarget,
             classNamePrefix,
             css: typeof css === 'undefined' || css
         });
@@ -55,19 +57,19 @@ const fontAdminMiddlewares = (option = {}) => {
             .map((v) => `'${v.key}'`)
             .join(' | ')
             .trim();
-        fs_1.default.writeFileSync(path_1.default.resolve(target, 'iconfont.key.ts'), `export type IconfontKey = ${typeKeys || 'string'}`);
+        fs_1.default.writeFileSync(path_1.default.resolve(generateTarget, 'iconfont.key.ts'), `export type IconfontKey = ${typeKeys || 'string'}`);
         // Generate Json
         const json = fonts.reduce((total, value) => {
             total[value.key] = value.value;
             return total;
         }, {});
-        fs_1.default.writeFileSync(path_1.default.resolve(target, 'iconfont.json'), JSON.stringify(json, null, '\t'));
+        fs_1.default.writeFileSync(path_1.default.resolve(generateTarget, 'iconfont.json'), JSON.stringify(json, null, '\t'));
         // Generate Base64
         if (base64) {
-            const ttfBase64 = fs_1.default.readFileSync(path_1.default.resolve(target, 'iconfont.ttf'), 'base64');
-            const cssFile = fs_1.default.readFileSync(path_1.default.resolve(target, 'iconfont.css'), 'utf-8');
+            const ttfBase64 = fs_1.default.readFileSync(path_1.default.resolve(generateTarget, 'iconfont.ttf'), 'base64');
+            const cssFile = fs_1.default.readFileSync(path_1.default.resolve(generateTarget, 'iconfont.css'), 'utf-8');
             const base64Css = cssFile.replace(/@font-face \{([\s\S]*)\*\/\n\}/, createTTFBase64FontFace(ttfBase64));
-            fs_1.default.writeFileSync(path_1.default.resolve(target, 'iconfont.base64.css'), base64Css);
+            fs_1.default.writeFileSync(path_1.default.resolve(generateTarget, 'iconfont.base64.css'), base64Css);
         }
         // Generate Zip
         if (outTarget) {
@@ -116,6 +118,7 @@ const fontAdminMiddlewares = (option = {}) => {
         const isRetainColor = JSON.parse(req.body.isRetainColor);
         files
             .map((v) => ({
+            id: nanoid_1.nanoid(10),
             key: v.originalname.split('.')[0],
             value: v.buffer.toString(),
             group
@@ -137,7 +140,11 @@ const fontAdminMiddlewares = (option = {}) => {
             .write();
         res.send('导出成功!');
     });
-    app.generateFonts = generateFonts;
+    app.font = {
+        generateFonts,
+        targetPath,
+        optionPath
+    };
     return app;
 };
 exports.fontAdminMiddlewares = fontAdminMiddlewares;

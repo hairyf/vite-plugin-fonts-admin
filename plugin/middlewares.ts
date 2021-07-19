@@ -7,6 +7,7 @@ import archiver from 'archiver'
 import { generateSvgCahes, archiverLogger } from './utils'
 import { setHtmlStrTagAttr } from '@tuimao/utils/package/common'
 import multer from 'multer'
+import { nanoid } from 'nanoid'
 const utils = require('nodejs-fs-utils')
 
 interface FontOption {
@@ -33,9 +34,15 @@ const createTTFBase64FontFace = (base64: string) => {
 }
 
 export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
-  const app = express() as Express & { generateFonts: typeof generateFonts }
   const targetPath = option.path || 'fontsdb'
   const optionPath = `${targetPath}/index.json`
+  const app = express() as Express & { 
+    font: {
+      generateFonts: typeof generateFonts;
+      targetPath: string;
+      optionPath: string;
+    } 
+  }
 
   // 判断路径是否存在 / 符合创建环境
   if (!fs.existsSync(optionPath)) {
@@ -61,6 +68,7 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
       classNamePrefix,
       outTarget
     } = { ...option, ...defaultOption }
+    const generateTarget = path.resolve(target, '/fonts')
     // Get fonts
     const allFonts: FontOption[] = jsonRouter.db.get('fonts').value()
     const fonts = allFonts.filter((f) => {
@@ -72,7 +80,7 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
     await generateSvgCahes(fonts)
     await svgtofont({
       src: path.resolve(__dirname, './caches'),
-      dist: target,
+      dist: generateTarget,
       classNamePrefix,
       css: typeof css === 'undefined' || css
     })
@@ -83,7 +91,7 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
       .join(' | ')
       .trim()
     fs.writeFileSync(
-      path.resolve(target, 'iconfont.key.ts'),
+      path.resolve(generateTarget, 'iconfont.key.ts'),
       `export type IconfontKey = ${typeKeys || 'string'}`
     )
 
@@ -92,17 +100,17 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
       total[value.key] = value.value
       return total
     }, {})
-    fs.writeFileSync(path.resolve(target, 'iconfont.json'), JSON.stringify(json, null, '\t'))
+    fs.writeFileSync(path.resolve(generateTarget, 'iconfont.json'), JSON.stringify(json, null, '\t'))
 
     // Generate Base64
     if (base64) {
-      const ttfBase64 = fs.readFileSync(path.resolve(target, 'iconfont.ttf'), 'base64')
-      const cssFile = fs.readFileSync(path.resolve(target, 'iconfont.css'), 'utf-8')
+      const ttfBase64 = fs.readFileSync(path.resolve(generateTarget, 'iconfont.ttf'), 'base64')
+      const cssFile = fs.readFileSync(path.resolve(generateTarget, 'iconfont.css'), 'utf-8')
       const base64Css = cssFile.replace(
         /@font-face \{([\s\S]*)\*\/\n\}/,
         createTTFBase64FontFace(ttfBase64)
       )
-      fs.writeFileSync(path.resolve(target, 'iconfont.base64.css'), base64Css)
+      fs.writeFileSync(path.resolve(generateTarget, 'iconfont.base64.css'), base64Css)
     }
 
     // Generate Zip
@@ -154,6 +162,7 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
     const isRetainColor = JSON.parse(req.body.isRetainColor)
     files
       .map((v) => ({
+        id: nanoid(10),
         key: v.originalname.split('.')[0],
         value: v.buffer.toString(),
         group
@@ -176,6 +185,10 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
     res.send('导出成功!')
   })
 
-  app.generateFonts = generateFonts
+  app.font = {
+    generateFonts,
+    targetPath,
+    optionPath
+  }
   return app
 }

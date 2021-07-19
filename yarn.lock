@@ -471,10 +471,10 @@
     "@types/connect" "*"
     "@types/node" "*"
 
-"@types/cheerio@0.22.29":
-  version "0.22.29"
-  resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.29.tgz#7115e9688bfc9e2f2730327c674b3d6a7e753e09"
-  integrity sha512-rNX1PsrDPxiNiyLnRKiW2NXHJFHqx0Fl3J2WsZq0MTBspa/FgwlqhXJE2crIcc+/2IglLHtSWw7g053oUR8fOg==
+"@types/cheerio@0.22.30":
+  version "0.22.30"
+  resolved "https://registry.nlark.com/@types/cheerio/download/@types/cheerio-0.22.30.tgz#6c1ded70d20d890337f0f5144be2c5e9ce0936e6"
+  integrity sha1-bB3tcNINiQM38PUUS+LF6c4JNuY=
   dependencies:
     "@types/node" "*"
 
@@ -485,10 +485,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/ejs@3.0.6":
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/@types/ejs/-/ejs-3.0.6.tgz#aca442289df623bfa8e47c23961f0357847b83fe"
-  integrity sha512-fj1hi+ZSW0xPLrJJD+YNwIh9GZbyaIepG26E/gXvp8nCa2pYokxUYO1sK9qjGxp2g8ryZYuon7wmjpwE2cyASQ==
+"@types/ejs@3.0.7":
+  version "3.0.7"
+  resolved "https://registry.nlark.com/@types/ejs/download/@types/ejs-3.0.7.tgz?cache=0&sync_timestamp=1625598928764&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fejs%2Fdownload%2F%40types%2Fejs-3.0.7.tgz#4f2af032f65c54e2bc0b32abce0125af7923b143"
+  integrity sha1-TyrwMvZcVOK8CzKrzgElr3kjsUM=
 
 "@types/estree@^0.0.48":
   version "0.0.48"
@@ -514,10 +514,10 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/fs-extra@9.0.11":
-  version "9.0.11"
-  resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-9.0.11.tgz#8cc99e103499eab9f347dbc6ca4e99fb8d2c2b87"
-  integrity sha512-mZsifGG4QeQ7hlkhO56u7zt/ycBgGxSVsFI/6lGTU34VtwkiqrrSDgw0+ygs8kFGWcXnFQWMrzF2h7TtDFNixA==
+"@types/fs-extra@9.0.12":
+  version "9.0.12"
+  resolved "https://registry.nlark.com/@types/fs-extra/download/@types/fs-extra-9.0.12.tgz#9b8f27973df8a7a3920e8461517ebf8a7d4fdfaf"
+  integrity sha1-m48nlz34p6OSDoRhUX6/in1P368=
   dependencies:
     "@types/node" "*"
 
@@ -649,15 +649,15 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
-"@types/svg2ttf@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@types/svg2ttf/-/svg2ttf-5.0.0.tgz#a8a5f423ca042085bd236059de67cdb24001fb3d"
-  integrity sha512-BJltrpZbxM6VmfzpUCm1A4OlGZZ/NO/SnP1g5tTkJ4lQRfIaDuW0oDAKOxJbdgBA6lWTtEAUpyEuZMGs81ly3A==
+"@types/svg2ttf@5.0.1":
+  version "5.0.1"
+  resolved "https://registry.nlark.com/@types/svg2ttf/download/@types/svg2ttf-5.0.1.tgz#b41b08af3dcf4eecc2f7a47bf2e3315209faaa0e"
+  integrity sha1-tBsIrz3PTuzC96R78uMxUgn6qg4=
 
-"@types/svgo@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@types/svgo/-/svgo-2.3.0.tgz#16723e04f9892b20368ff6f43396557ab86a1f39"
-  integrity sha512-DrZoZNZr4DlJEpu+g71l1SOxJ5KzLdRV2h+JBOgMmsL5zU82G9WW0fPjUhNM6WbVuVYoJ6mUhAgLZfsh3TQxlw==
+"@types/svgo@2.3.1":
+  version "2.3.1"
+  resolved "https://registry.nlark.com/@types/svgo/download/@types/svgo-2.3.1.tgz#85442587bc72bbfb92f3721020e28d678b8744ec"
+  integrity sha1-hUQlh7xyu/uS83IQIOKNZ4uHROw=
 
 "@types/ttf2woff2@2.0.0":
   version "2.0.0"
@@ -886,6 +886,21 @@
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.1.4.tgz#c14c461ec42ea2c1556e86f60b0354341d91adc3"
   integrity sha512-6O45kZAmkLvzGLToBxEz4lR2W6kXohCtebV2UxjH9GXjd8X9AhEn68FN9eNanFtWNzvgw1hqd6HkPRVQalqf7Q==
+
+"@vueuse/core@^5.1.3":
+  version "5.1.3"
+  resolved "https://registry.nlark.com/@vueuse/core/download/@vueuse/core-5.1.3.tgz#a9edda9202513423a27fbac896dd7bc918d1ac6c"
+  integrity sha1-qe3akgJRNCOif7rIlt17yRjRrGw=
+  dependencies:
+    "@vueuse/shared" "5.1.3"
+    vue-demi "*"
+
+"@vueuse/shared@5.1.3":
+  version "5.1.3"
+  resolved "https://registry.nlark.com/@vueuse/shared/download/@vueuse/shared-5.1.3.tgz#11faa3a1a2b4d3dc41eac7a825900a8894efe95e"
+  integrity sha1-EfqjoaK009xB6seoJZAKiJTv6V4=
+  dependencies:
+    vue-demi "*"
 
 abbrev@1:
   version "1.1.1"
@@ -1475,10 +1490,10 @@ chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-cheerio-select@^1.4.0:
+cheerio-select@^1.5.0:
   version "1.5.0"
-  resolved "https://registry.yarnpkg.com/cheerio-select/-/cheerio-select-1.5.0.tgz#faf3daeb31b17c5e1a9dabcee288aaf8aafa5823"
-  integrity sha512-qocaHPv5ypefh6YNxvnbABM07KMxExbtbfuJoIie3iZXX1ERwYmJcIiRrr9H05ucQP1k28dav8rpdDgjQd8drg==
+  resolved "https://registry.nlark.com/cheerio-select/download/cheerio-select-1.5.0.tgz#faf3daeb31b17c5e1a9dabcee288aaf8aafa5823"
+  integrity sha1-+vPa6zGxfF4anavO4oiq+Kr6WCM=
   dependencies:
     css-select "^4.1.3"
     css-what "^5.0.1"
@@ -1486,13 +1501,13 @@ cheerio-select@^1.4.0:
     domhandler "^4.2.0"
     domutils "^2.7.0"
 
-cheerio@1.0.0-rc.9:
-  version "1.0.0-rc.9"
-  resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-1.0.0-rc.9.tgz#a3ae6b7ce7af80675302ff836f628e7cb786a67f"
-  integrity sha512-QF6XVdrLONO6DXRF5iaolY+odmhj2CLj+xzNod7INPWMi/x9X4SOylH0S/vaPpX+AUU6t04s34SQNh7DbkuCng==
+cheerio@1.0.0-rc.10:
+  version "1.0.0-rc.10"
+  resolved "https://registry.nlark.com/cheerio/download/cheerio-1.0.0-rc.10.tgz?cache=0&sync_timestamp=1623167787392&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcheerio%2Fdownload%2Fcheerio-1.0.0-rc.10.tgz#2ba3dcdfcc26e7956fc1f440e61d51c643379f3e"
+  integrity sha1-K6Pc38wm55VvwfRA5h1RxkM3nz4=
   dependencies:
-    cheerio-select "^1.4.0"
-    dom-serializer "^1.3.1"
+    cheerio-select "^1.5.0"
+    dom-serializer "^1.3.2"
     domhandler "^4.2.0"
     htmlparser2 "^6.1.0"
     parse5 "^6.0.1"
@@ -1831,17 +1846,6 @@ css-render@^0.15.3, css-render@^0.15.4, css-render@~0.15.4:
     "@types/node" "~14.14.31"
     csstype "~3.0.5"
 
-css-select@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/css-select/-/css-select-3.1.2.tgz#d52cbdc6fee379fba97fb0d3925abbd18af2d9d8"
-  integrity sha512-qmss1EihSuBNWNNhHjxzxSfJoFBM/lERB/Q4EnsJQQC62R2evJDW481091oAdOr9uh46/0n4nrg0It5cAnj1RA==
-  dependencies:
-    boolbase "^1.0.0"
-    css-what "^4.0.0"
-    domhandler "^4.0.0"
-    domutils "^2.4.3"
-    nth-check "^2.0.0"
-
 css-select@^4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/css-select/-/css-select-4.1.3.tgz#a70440f70317f2669118ad74ff105e65849c7067"
@@ -1865,11 +1869,6 @@ css-unit-converter@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/css-unit-converter/-/css-unit-converter-1.1.2.tgz#4c77f5a1954e6dbff60695ecb214e3270436ab21"
   integrity sha512-IiJwMC8rdZE0+xiEZHeru6YoONC4rfPMqGm2W85jMIbkFvv5nFTwJVFHam2eFrN6txmoUYFAFXiv8ICVeTO0MA==
-
-css-what@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/css-what/-/css-what-4.0.0.tgz#35e73761cab2eeb3d3661126b23d7aa0e8432233"
-  integrity sha512-teijzG7kwYfNVsUh2H/YN62xW3KK9YhXEgSlbxMlcyjPNvdKJqFx5lrwlJgoFP1ZHlB89iGDlo/JyshKeRhv5A==
 
 css-what@^5.0.0, css-what@^5.0.1:
   version "5.0.1"
@@ -2085,7 +2084,7 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-dom-serializer@^1.0.1, dom-serializer@^1.3.1:
+dom-serializer@^1.0.1, dom-serializer@^1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-1.3.2.tgz#6206437d32ceefaec7161803230c7a20bc1b4d91"
   integrity sha512-5c54Bk5Dw4qAxNOI1pFEizPSjVsx5+bpJKmL2kPn8JhBUq2q09tTCa3mjijun2NfK78NMouDYNMBkOrPZiS+ig==
@@ -2106,7 +2105,7 @@ domhandler@^4.0.0, domhandler@^4.2.0:
   dependencies:
     domelementtype "^2.2.0"
 
-domutils@^2.4.3, domutils@^2.5.2, domutils@^2.6.0, domutils@^2.7.0:
+domutils@^2.5.2, domutils@^2.6.0, domutils@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.7.0.tgz#8ebaf0c41ebafcf55b0b72ec31c56323712c5442"
   integrity sha512-8eaHa17IwJUPAiB+SoTYBo5mCdeMgdcAoXJ59m6DT1vw+5iLS3gNoqYaRowaBKtGVrOF1Jz4yDTgYKLK2kvfJg==
@@ -3865,10 +3864,10 @@ morgan@^1.10.0:
     on-finished "~2.3.0"
     on-headers "~1.0.2"
 
-move-file@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/move-file/-/move-file-2.0.0.tgz#83ffa309b5d7f69d518b28e1333e2ffadf331e3e"
-  integrity sha512-cdkdhNCgbP5dvS4tlGxZbD+nloio9GIimP57EjqFhwLcMjnU+XJKAZzlmg/TN/AK1LuNAdTSvm3CPPP4Xkv0iQ==
+move-file@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.nlark.com/move-file/download/move-file-2.1.0.tgz#3bec9d34fbe4832df6865f112cda4492b56e8507"
+  integrity sha1-O+ydNPvkgy32hl8RLNpEkrVuhQc=
   dependencies:
     path-exists "^4.0.0"
 
@@ -5163,10 +5162,10 @@ svg-tags@^1.0.0:
   resolved "https://registry.yarnpkg.com/svg-tags/-/svg-tags-1.0.0.tgz#58f71cee3bd519b59d4b2a843b6c7de64ac04764"
   integrity sha1-WPcc7jvVGbWdSyqEO2x95krAR2Q=
 
-svg2ttf@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/svg2ttf/-/svg2ttf-6.0.0.tgz#fdb0b0a7a4bf3dd001747bf8c0faa1c750a2a5d7"
-  integrity sha512-nwBRCK9e86f+zeB2JXQyn5LVNVTlBNEC7hIQCrXxeUN6EU7mawogJosE+S4S1sZbezOBxwF9epxkJCma/chaOw==
+svg2ttf@6.0.2:
+  version "6.0.2"
+  resolved "https://registry.nlark.com/svg2ttf/download/svg2ttf-6.0.2.tgz#7eec850c3dc2c81f813ce5fa518c8a15b1292d43"
+  integrity sha1-fuyFDD3CyB+BPOX6UYyKFbEpLUM=
   dependencies:
     argparse "^2.0.1"
     cubic2quad "^1.2.1"
@@ -5188,15 +5187,15 @@ svgicons2svgfont@10.0.3:
     sax "^1.2.4"
     svg-pathdata "^6.0.0"
 
-svgo@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/svgo/-/svgo-2.3.0.tgz#6b3af81d0cbd1e19c83f5f63cec2cb98c70b5373"
-  integrity sha512-fz4IKjNO6HDPgIQxu4IxwtubtbSfGEAJUq/IXyTPIkGhWck/faiiwfkvsB8LnBkKLvSoyNNIY6d13lZprJMc9Q==
+svgo@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.nlark.com/svgo/download/svgo-2.3.1.tgz?cache=0&sync_timestamp=1624693673697&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fsvgo%2Fdownload%2Fsvgo-2.3.1.tgz#603a69ce50311c0e36791528f549644ec1b3f4bc"
+  integrity sha1-YDppzlAxHA42eRUo9UlkTsGz9Lw=
   dependencies:
     "@trysound/sax" "0.1.1"
     chalk "^4.1.0"
     commander "^7.1.0"
-    css-select "^3.1.2"
+    css-select "^4.1.3"
     css-tree "^1.1.2"
     csso "^4.2.0"
     stable "^0.1.8"
@@ -5206,28 +5205,28 @@ svgpath@^2.1.5:
   resolved "https://registry.yarnpkg.com/svgpath/-/svgpath-2.3.1.tgz#b102334bebd2244b4818460ba2ebad52716a0d43"
   integrity sha512-wNz6lCoj+99GMoyU7SozTfPqiLHz6WcJYZ30Z+F4lF/gPtxWHBCpZ4DhoDI0+oZ0dObKyYsJdSPGbL2mJq/qCg==
 
-svgtofont@^3.11.4:
-  version "3.11.4"
-  resolved "https://registry.yarnpkg.com/svgtofont/-/svgtofont-3.11.4.tgz#06361b648be61416660228c56c4c2a52c4cfd6ba"
-  integrity sha512-doWcXL/ZI0Qtx2Ecb75QTpuP96XpEC29cdY9I2IkgDzJOP/rDIfxzsrN1aKNEzrQxG7VQwYOgHXcRDKPTBNH2Q==
+svgtofont@^3.12.0:
+  version "3.12.0"
+  resolved "https://registry.nlark.com/svgtofont/download/svgtofont-3.12.0.tgz#ac7c32301979567c3ec2c3e269c770bb74b5874d"
+  integrity sha1-rHwyMBl5Vnw+wsPiacdwu3S1h00=
   dependencies:
-    "@types/cheerio" "0.22.29"
-    "@types/ejs" "3.0.6"
-    "@types/fs-extra" "9.0.11"
-    "@types/svg2ttf" "5.0.0"
-    "@types/svgo" "2.3.0"
+    "@types/cheerio" "0.22.30"
+    "@types/ejs" "3.0.7"
+    "@types/fs-extra" "9.0.12"
+    "@types/svg2ttf" "5.0.1"
+    "@types/svgo" "2.3.1"
     "@types/ttf2woff2" "2.0.0"
-    cheerio "1.0.0-rc.9"
+    cheerio "1.0.0-rc.10"
     colors-cli "1.0.27"
     copy-template-dir "1.4.0"
     del "6.0.0"
     ejs "3.1.6"
     fs-extra "10.0.0"
     image2uri "1.0.4"
-    move-file "2.0.0"
-    svg2ttf "6.0.0"
+    move-file "2.1.0"
+    svg2ttf "6.0.2"
     svgicons2svgfont "10.0.3"
-    svgo "2.3.0"
+    svgo "2.3.1"
     ttf2eot "2.0.0"
     ttf2woff "2.0.2"
     ttf2woff2 "4.0.3"
@@ -5630,6 +5629,11 @@ vue-composable@^1.0.0-beta.23:
   integrity sha512-jtlEHcaLbN6ENHIiqABeBmGbtUuUEKCRaByerHudlpEcHTN4B47P/uRcrg93iL1iuWHl9OQeRqkyFIzjCF3MTQ==
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.3"
+
+vue-demi@*:
+  version "0.11.2"
+  resolved "https://registry.nlark.com/vue-demi/download/vue-demi-0.11.2.tgz#faa06da53887c493a695b997f4fcb4784a667990"
+  integrity sha1-+qBtpTiHxJOmlbmX9Py0eEpmeZA=
 
 vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.6.0:
   version "7.7.2"

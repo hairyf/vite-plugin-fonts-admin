@@ -12,6 +12,10 @@ interface GenerateFontsOption extends FontsPluginOption {
     outTarget?: string;
 }
 export declare const fontAdminMiddlewares: (option?: FontsPluginOption) => express.Express & {
-    generateFonts: (defaultOption?: GenerateFontsOption) => Promise<string | undefined>;
+    font: {
+        generateFonts: (defaultOption?: GenerateFontsOption) => Promise<string | undefined>;
+        targetPath: string;
+        optionPath: string;
+    };
 };
 export {};

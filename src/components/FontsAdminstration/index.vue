@@ -1,7 +1,7 @@
 <!--
  * @Author: Mr.Mao
  * @Date: 2021-06-30 20:33:06
- * @LastEditTime: 2021-07-17 14:35:05
+ * @LastEditTime: 2021-07-19 21:32:41
  * @Description: 
  * @LastEditors: Mr.Mao
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
@@ -68,7 +68,7 @@
               <span>导出 Fonts</span>
             </n-button>
             <n-checkbox v-model:checked="isSelectAll">全选</n-checkbox>
-            <n-button text @click="onDeleteItems">删除</n-button>
+            <n-button text @click="onDeleteItems()">删除</n-button>
             <n-button text @click="showMoveModel = true">移动</n-button>
             <n-checkbox v-model:checked="isRetainColor">导入 SVG 是否保留颜色</n-checkbox>
           </n-space>
@@ -86,6 +86,7 @@
               v-for="(item, index) in fonts"
               :key="index"
               @click="item.select = !item.select"
+              @contextmenu="onOpenContextMenu($event), (currentItem = item)"
               :class="[item.select ? 'bg-gray-50 border border-primary text-primary' : '']"
               tag="div"
               class="cn-font__item"
@@ -93,7 +94,9 @@
               <n-icon size="35" class="hover:text-primary transition-all duration-200">
                 <div class="inline-block" v-html="item.value"></div>
               </n-icon>
-              <n-element tag="div" class="select-none">{{ item.key }}</n-element>
+              <n-element tag="div" class="select-none">
+                <n-ellipsis class="max-w-80">{{ item.key }}</n-ellipsis>
+              </n-element>
             </n-element>
           </div>
           <n-empty
@@ -233,6 +236,16 @@
       </div>
     </n-form>
   </n-modal>
+  <!-- 右键菜单 -->
+  <n-dropdown
+    placement="bottom-start"
+    @select="onSelectContextMenu"
+    :x="dropdownOffset[0]"
+    :y="dropdownOffset[1]"
+    :options="dropdownOption"
+    :show="showDropdown"
+    :on-clickoutside="() => (showDropdown = false)"
+  />
 </template>
 
 <script lang="tsx" setup>
@@ -245,7 +258,7 @@
     Trash,
     CloudDownloadSharp
   } from '@vicons/ionicons5'
-  import { ref, computed, onMounted } from 'vue'
+  import { ref, computed, onMounted, nextTick } from 'vue'
   import {
     useMultipleSelect,
     useListPagination,
@@ -258,6 +271,7 @@
   import { forIn, cloneDeep } from 'lodash'
   import { useMessage, NEllipsis, NIcon } from 'naive-ui'
   import type { MenuOption, MessageReactive } from 'naive-ui'
+  import { useClipboard } from '@vueuse/core'
   axios.defaults['loading'] = true
   const message = useMessage()
   let loadingReactive: MessageReactive | undefined
@@ -410,16 +424,17 @@
     message.success('删除成功!')
   }
   /** 删除多个 svg 項 */
-  const onDeleteItems = async () => {
+  const onDeleteItems = async (ids?: number[]) => {
+    const fontIds = ids || seleteIds.value
     await Modal({
       preset: 'dialog',
       type: 'warning',
       title: '提示',
-      content: `你确定要删除当前 ${fontSeleteItems.value.length} 項图标吗？`,
+      content: `你确定要删除当前 ${fontIds.length} 項图标吗？`,
       positiveText: '确定',
       negativeText: '不确定'
     })
-    await Promise.all(seleteIds.value.map((v) => axios.delete(`/json/fonts/${v}`)))
+    await Promise.all(fontIds.map((v) => axios.delete(`/json/fonts/${v}`)))
     await resetFonts()
     message.success('删除成功!')
   }
@@ -473,9 +488,34 @@
     message.success('添加成功!')
     showIncGroupModel.value = false
   }
-  onMounted(() => {
-    resetGroup()
-  })
+  onMounted(() => resetGroup())
+
+  const currentItem = ref<fontOption>()
+  const dropdownOption = ref([
+    { label: '复制', key: 'copy' },
+    { label: '删除', key: 'delete' }
+  ])
+  const showDropdown = ref(false)
+  const dropdownOffset = ref([0, 0])
+  /** 打开右键菜单 */
+  const onOpenContextMenu = async (event: MouseEvent) => {
+    event.preventDefault()
+    await nextTick()
+    showDropdown.value = true
+    dropdownOffset.value[0] = event.clientX
+    dropdownOffset.value[1] = event.clientY
+  }
+  /** 处理点击菜单 */
+  const onSelectContextMenu = async (key: 'copy' | 'delete') => {
+    if (key === 'copy') {
+      await useClipboard({ source: currentItem.value?.key }).copy()
+      message.success(`复制 ${currentItem.value?.key} 成功`)
+    }
+    if (key === 'delete') {
+      onDeleteItems([currentItem.value!.id])
+    }
+    showDropdown.value = false
+  }
 </script>
 
 <style>

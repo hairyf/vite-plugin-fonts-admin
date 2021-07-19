@@ -1,3 +1,11 @@
+/*
+ * @Author: Mr.Mao
+ * @Date: 2021-07-06 09:09:31
+ * @LastEditTime: 2021-07-19 20:50:36
+ * @Description: 
+ * @LastEditors: Mr.Mao
+ * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
+ */
 import { fontAdminMiddlewares } from './middlewares'
 import { Plugin } from 'vite'
 import { debounce } from 'lodash'
@@ -21,18 +29,11 @@ export const ViteFontsAdmin = (option?: FontsPluginOption) => {
     configureServer: (server) => {
       const app = fontAdminMiddlewares(option)
       server.middlewares.use(app)
-      const targetPath = option?.path || 'src/VSvg'
-      const optionPath = `${targetPath}/index.json`
-      // 判断路径是否存在 / 符合创建环境
-      if (!fs.existsSync(optionPath)) {
-        utils.mkdirsSync(targetPath)
-        fs.writeFileSync(optionPath, '{}', { flag: 'w' })
-      }
       const generateFonts = debounce(
-        () => app.generateFonts({ target: path.resolve(targetPath, './fonts') }),
+        () => app.font.generateFonts({ target: path.resolve(app.font.optionPath, '/fonts') }),
         50
       )
-      watcher = fs.watch(optionPath, generateFonts)
+      watcher = fs.watch(app.font.optionPath, generateFonts)
     },
     buildEnd: () => watcher?.close?.()
   }
