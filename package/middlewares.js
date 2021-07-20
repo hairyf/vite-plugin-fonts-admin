@@ -36,7 +36,7 @@ const fontAdminMiddlewares = (option = {}) => {
     // 生成所有配置
     const generateFonts = async (defaultOption = {}) => {
         const { target = targetPath, base64, css, groups, classNamePrefix, outTarget } = Object.assign(Object.assign({}, option), defaultOption);
-        const generateTarget = path_1.default.resolve(target, '/fonts');
+        const generateTarget = path_1.default.join(target, '/fonts');
         // Get fonts
         const allFonts = jsonRouter.db.get('fonts').value();
         const fonts = allFonts.filter((f) => {

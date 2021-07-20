@@ -68,7 +68,7 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
       classNamePrefix,
       outTarget
     } = { ...option, ...defaultOption }
-    const generateTarget = path.resolve(target, '/fonts')
+    const generateTarget = path.join(target, '/fonts')
     // Get fonts
     const allFonts: FontOption[] = jsonRouter.db.get('fonts').value()
     const fonts = allFonts.filter((f) => {
