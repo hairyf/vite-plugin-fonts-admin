@@ -441,16 +441,19 @@
     postcss "^7"
     tailwindcss "npm:@tailwindcss/postcss7-compat"
 
-"@tuimao/utils@^1.0.95":
-  version "1.0.95"
-  resolved "https://registry.nlark.com/@tuimao/utils/download/@tuimao/utils-1.0.95.tgz?cache=0&sync_timestamp=1626503898941&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tuimao%2Futils%2Fdownload%2F%40tuimao%2Futils-1.0.95.tgz#625fae41c9e8017482494639f580c1514f92b2fa"
-  integrity sha1-Yl+uQcnoAXSCSUY59YDBUU+Ssvo=
+"@tuimao/utils@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.nlark.com/@tuimao/utils/download/@tuimao/utils-1.1.8.tgz?cache=0&sync_timestamp=1627186021006&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tuimao%2Futils%2Fdownload%2F%40tuimao%2Futils-1.1.8.tgz#5c6df5e6cbd110e71de4d35ad83cd010b452a653"
+  integrity sha1-XG315svREOcd5NNa2DzQELRSplM=
   dependencies:
     "@types/lodash" "^4.14.170"
     "@types/node" "^15.12.5"
+    "@types/pubsub-js" "^1.8.2"
+    "@vueuse/core" "^5.1.4"
     axios "^0.21.1"
     dayjs "^1.10.5"
     lodash "^4.17.21"
+    pubsub-js "^1.9.3"
     vue "^3.1.2"
     vue-composable "^1.0.0-beta.23"
     vue-router "^4.0.10"
@@ -630,6 +633,11 @@
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
+
+"@types/pubsub-js@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.nlark.com/@types/pubsub-js/download/@types/pubsub-js-1.8.2.tgz#4f4592dd28a2c832f60ffca99e4a991886db682e"
+  integrity sha1-T0WS3SiiyDL2D/ypnkqZGIbbaC4=
 
 "@types/qs@*":
   version "6.9.6"
@@ -895,10 +903,25 @@
     "@vueuse/shared" "5.1.3"
     vue-demi "*"
 
+"@vueuse/core@^5.1.4":
+  version "5.2.0"
+  resolved "https://registry.nlark.com/@vueuse/core/download/@vueuse/core-5.2.0.tgz#c2c0b89d9506fdfca41cd3056e38478226bc5e31"
+  integrity sha1-wsC4nZUG/fykHNMFbjhHgia8XjE=
+  dependencies:
+    "@vueuse/shared" "5.2.0"
+    vue-demi "*"
+
 "@vueuse/shared@5.1.3":
   version "5.1.3"
   resolved "https://registry.nlark.com/@vueuse/shared/download/@vueuse/shared-5.1.3.tgz#11faa3a1a2b4d3dc41eac7a825900a8894efe95e"
   integrity sha1-EfqjoaK009xB6seoJZAKiJTv6V4=
+  dependencies:
+    vue-demi "*"
+
+"@vueuse/shared@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.nlark.com/@vueuse/shared/download/@vueuse/shared-5.2.0.tgz#894921cf5e5fc7f9afa7d7870800b0c9cd265e0c"
+  integrity sha1-iUkhz15fx/mvp9eHCACwyc0mXgw=
   dependencies:
     vue-demi "*"
 
@@ -4446,6 +4469,11 @@ psl@^1.1.28:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/psl/-/psl-1.8.0.tgz#9326f8bcfb013adcc005fdff056acce020e51c24"
   integrity sha512-RIdOzyoavK+hA18OGGWDqUTsCLhtA7IcZ/6NCs4fFJaHBDab+pDDmDIByWFRQJq2Cd7r1OoQxBGKOaztq+hjIQ==
+
+pubsub-js@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.npm.taobao.org/pubsub-js/download/pubsub-js-1.9.3.tgz#674eea4d568d0402e0527cdb10e2aab7b55621d2"
+  integrity sha1-Z07qTVaNBALgUnzbEOKqt7VWIdI=
 
 pump@^1.0.0:
   version "1.0.3"
