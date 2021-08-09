@@ -1,9 +1,9 @@
 <!--
  * @Author: Mr.Mao
  * @Date: 2021-06-30 20:33:06
- * @LastEditTime: 2021-07-19 22:17:33
+ * @LastEditTime: 2021-08-06 11:33:29
  * @Description: 
- * @LastEditors: Mr.Mao
+ * @LastEditors: Zhilong
  * @autograph: 任何一个傻子都能写出让电脑能懂的代码，而只有好的程序员可以写出让人能看懂的代码
 -->
 <template>
@@ -259,12 +259,7 @@
     CloudDownloadSharp
   } from '@vicons/ionicons5'
   import { ref, computed, onMounted, nextTick } from 'vue'
-  import {
-    useMultipleSelect,
-    useListPagination,
-    axiosLoading,
-    setHtmlStrTagAttr
-  } from '@tuimao/utils'
+  import { useMultipleSelect, useListPagination, axiosLoading } from '@tuimao/utils'
   import { download } from '../../utils'
   import { Modal } from '../Modal'
   import axios from 'axios'
@@ -272,6 +267,7 @@
   import { useMessage, NEllipsis, NIcon } from 'naive-ui'
   import type { MenuOption, MessageReactive } from 'naive-ui'
   import { useClipboard } from '@vueuse/core'
+  import { setHtmlStrTagAttr } from '@tuimao/core'
   axios.defaults['loading'] = true
   const message = useMessage()
   let loadingReactive: MessageReactive | undefined
@@ -443,19 +439,19 @@
     const cloneForm = cloneDeep(fontForm.value)
     cloneForm.value = cloneForm.value
       .replace(/\n/g, '')
-      .replace(/width="(\w*%?)"/g, '')
-      .replace(/height="(\w*%?)"/g, '')
+      // .replace(/width="(\w*%?)"/g, '')
+      // .replace(/height="(\w*%?)"/g, '')
       .trim()
+    console.log(cloneForm.value)
+    cloneForm.value = setHtmlStrTagAttr(cloneForm.value, {
+      tag: ['svg'],
+      attr: ['width', 'height'],
+      value: ''
+    })
+    console.log(cloneForm.value)
     if (!isRetainColor.value) {
-      cloneForm.value = setHtmlStrTagAttr({
-        html: cloneForm.value,
-        tag: 'path',
-        attr: 'fill',
-        value: 'currentColor'
-      })
-      cloneForm.value = setHtmlStrTagAttr({
-        html: cloneForm.value,
-        tag: 'svg',
+      cloneForm.value = setHtmlStrTagAttr(cloneForm.value, {
+        tag: ['path', 'svg'],
         attr: 'fill',
         value: 'currentColor'
       })

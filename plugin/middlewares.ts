@@ -5,7 +5,7 @@ import path from 'path'
 import svgtofont from 'svgtofont'
 import archiver from 'archiver'
 import { generateSvgCahes, archiverLogger } from './utils'
-import { removeHtmlStrTagAttr } from '@tuimao/utils/package/common'
+import { setHtmlStrTagAttr } from '@tuimao/core'
 import multer from 'multer'
 import { nanoid } from 'nanoid'
 const utils = require('nodejs-fs-utils')
@@ -169,7 +169,7 @@ export const fontAdminMiddlewares = (option: FontsPluginOption = {}) => {
       }))
       .map((v) => {
         if (!isRetainColor) {
-          v.value = removeHtmlStrTagAttr(v.value, 'fill')
+          v.value = setHtmlStrTagAttr(v.value,{ tag: ['path','svg'],attr: 'fill', value: 'currentColor'})
         }
         return v
       })
