@@ -419,10 +419,10 @@
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.1.1.tgz#3348564048e7a2d7398c935d466c0414ebb6a669"
   integrity sha512-Z6DoceYb/1xSg5+e+ZlPZ9v0N16ZvZ+wYMraFue4HYrE4ttONKtsvruIRf6t9TBR0YvSOfi1hUU0fJfBLCDYow==
 
-"@tuimao/core@^0.0.8-alpha.0":
-  version "0.0.8-alpha.0"
-  resolved "https://registry.yarnpkg.com/@tuimao/core/-/core-0.0.8-alpha.0.tgz#746e64479561522fe6f3118c48c4d54cedf3ecf0"
-  integrity sha512-QB8udJIwg8HCy+EDEcUwPT3Dzhb8kYY5XXAebZcndrnxBarSuXCcWrPTMPToTGc/CgOrqLZ2mDeMe6n3bQU4YQ==
+"@tuimao/core@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.nlark.com/@tuimao/core/download/@tuimao/core-0.2.2.tgz#37c9d7a7074ffe3f79941984e39c9ab62f511027"
+  integrity sha1-N8nXpwdP/j95lBmE45yati9RECc=
   dependencies:
     "@types/lodash-es" "^4.17.4"
     dayjs "^1.10.6"
